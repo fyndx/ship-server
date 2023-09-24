@@ -233,7 +233,7 @@ model sso_providers {
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
   instance_id                 String?       @db.Uuid
-  id                          String        @id @db.Uuid
+  id                          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   aud                         String?       @db.VarChar(255)
   role                        String?       @db.VarChar(255)
   email                       String?       @db.VarChar(255)
