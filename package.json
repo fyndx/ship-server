@@ -7,12 +7,19 @@
   },
   "dependencies": {
     "@elysiajs/swagger": "^0.7.2",
+    "@pothos/core": "^3.37.0",
+    "@pothos/plugin-prisma": "^3.60.0",
+    "@pothos/plugin-prisma-utils": "^0.11.0",
     "@prisma/client": "^5.3.1",
-    "elysia": "latest"
+    "elysia": "latest",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.2",
+    "graphql-yoga": "^4.0.4"
   },
   "devDependencies": {
     "bun-types": "latest",
-    "prisma": "latest"
+    "prisma": "latest",
+    "typescript": "^5.2.2"
   },
   "module": "src/index.js"
 }
