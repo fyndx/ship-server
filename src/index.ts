@@ -1,5 +1,9 @@
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
+import { schema } from "./schema";
+import { createYoga } from "graphql-yoga";
+
+const yoga = createYoga({ schema });
 
 const app = new Elysia()
   .use(swagger())
@@ -10,6 +14,10 @@ const app = new Elysia()
       message: "OK",
       timestamp: Date.now(),
     };
+  })
+  .get("/graphql", async ({ request }) => yoga.fetch(request))
+  .post("/graphql", async ({ request }) => yoga.fetch(request), {
+    type: "none",
   })
   .listen(3000);
 
