@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@elysiajs/swagger": "^0.7.2",
+    "@lucia-auth/adapter-prisma": "^3.0.2",
     "@pothos/core": "^3.37.0",
     "@pothos/plugin-prisma": "^3.60.0",
     "@pothos/plugin-prisma-utils": "^0.11.0",
@@ -14,7 +15,8 @@
     "elysia": "latest",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.2",
-    "graphql-yoga": "^4.0.4"
+    "graphql-yoga": "^4.0.4",
+    "lucia": "^2.7.1"
   },
   "devDependencies": {
     "bun-types": "latest",
