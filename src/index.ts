@@ -1,26 +1,43 @@
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
-import { schema } from "./schema";
-import { createYoga } from "graphql-yoga";
-
-const yoga = createYoga({ schema });
+import { auth } from "@/src/lib/auth";
+import { OpenAPI } from "./lib/open-api";
 
 const app = new Elysia()
-  .use(swagger())
-  .get("/", () => "Hello Elysia")
-  .get("/health", ({}) => {
-    return {
-      uptime: process.uptime(),
-      message: "OK",
-      timestamp: Date.now(),
-    };
-  })
-  .get("/graphql", async ({ request }) => yoga.fetch(request))
-  .post("/graphql", async ({ request }) => yoga.fetch(request), {
-    type: "none",
-  })
-  .listen(3000);
+	.use(
+		swagger({
+			documentation: {
+				components: await OpenAPI.components,
+				paths: await OpenAPI.getPaths(),
+				tags: [{ name: "App", description: "General endpoints" }],
+			},
+		}),
+	)
+	.mount(auth.handler)
+	.get("/", () => "Hello Elysia", {
+		detail: {
+			tags: ["App"],
+		},
+	})
+	.get(
+		"/health",
+		() => {
+			return {
+				uptime: process.uptime(),
+				message: "OK",
+				timestamp: Date.now(),
+			};
+		},
+		{
+			detail: {
+				tags: ["App"],
+				description: "Health check endpoint",
+				summary: "Health Check",
+			},
+		},
+	)
+	.listen(3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );
