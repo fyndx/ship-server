@@ -15,7 +15,7 @@ COPY ./tsconfig.json tsconfig.json
 ENV NODE_ENV=production
 
 # Generate Prisma client
-RUN bun prisma generate
+RUN bun prisma generate --no-engine
 
 RUN bun build \
 	--compile \
