@@ -14,6 +14,9 @@ COPY ./tsconfig.json tsconfig.json
 
 ENV NODE_ENV=production
 
+# Generate Prisma client
+RUN bun prisma generate
+
 RUN bun build \
 	--compile \
 	--minify-whitespace \
