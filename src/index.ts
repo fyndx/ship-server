@@ -1,3 +1,4 @@
+import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
 import { auth } from "@/src/lib/auth";
@@ -11,6 +12,14 @@ const app = new Elysia()
 				paths: await OpenAPI.getPaths(),
 				tags: [{ name: "App", description: "General endpoints" }],
 			},
+		}),
+	)
+	.use(
+		cors({
+			origin: ["http://localhost:3000"],
+			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+			credentials: true,
+			allowedHeaders: ["Content-Type", "Authorization"],
 		}),
 	)
 	.mount(auth.handler)
