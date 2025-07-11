@@ -17,4 +17,11 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 	},
+	advanced: {
+		cookiePrefix: "universal-starter",
+		crossSubDomainCookies: {
+			enabled: true,
+			domain: "localhost",
+		},
+	},
 });
