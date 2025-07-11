@@ -6,7 +6,11 @@ import { prisma } from "@/src/lib/db";
 
 export const auth = betterAuth({
 	plugins: [expo(), openAPI()],
-	trustedOrigins: ["universalstarter://", "universalstarter://*"],
+	trustedOrigins: [
+		"universalstarter://",
+		"universalstarter://*",
+		"localhost:8081",
+	],
 	database: prismaAdapter(prisma, {
 		provider: "postgresql",
 	}),
