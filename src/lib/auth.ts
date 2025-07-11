@@ -21,5 +21,8 @@ export const auth = betterAuth({
 	},
 	advanced: {
 		cookiePrefix: "universal-starter",
+		crossSubDomainCookies: {
+			enabled: true,
+		},
 	},
 });
