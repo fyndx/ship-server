@@ -9,6 +9,8 @@ export const auth = betterAuth({
 	trustedOrigins: [
 		"universalstarter://",
 		"universalstarter://*",
+		"*.expo.app",
+		"expo.app",
 		"localhost:8081",
 	],
 	database: prismaAdapter(prisma, {
@@ -19,9 +21,5 @@ export const auth = betterAuth({
 	},
 	advanced: {
 		cookiePrefix: "universal-starter",
-		crossSubDomainCookies: {
-			enabled: true,
-			domain: "localhost",
-		},
 	},
 });
