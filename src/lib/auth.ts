@@ -10,7 +10,7 @@ export const auth = betterAuth({
 		"universalstarter://",
 		"universalstarter://*",
 		"*.expo.app",
-		"expo.app",
+		"https://expo.app",
 		"localhost:8081",
 	],
 	database: prismaAdapter(prisma, {

@@ -16,7 +16,7 @@ const app = new Elysia()
 	)
 	.use(
 		cors({
-			origin: ["http://localhost:8081", "*.expo.app"],
+			origin: ["http://localhost:8081", /^https:\/\/.*\.expo\.app$/],
 			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 			credentials: true,
 			allowedHeaders: ["Content-Type", "Authorization"],
