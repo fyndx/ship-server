@@ -22,7 +22,11 @@ export const auth = betterAuth({
 	advanced: {
 		cookiePrefix: "universal-starter",
 		crossSubDomainCookies: {
-			enabled: true,
+			enabled: false,
+		},
+		defaultCookieAttributes: {
+			sameSite: "none",
+			secure: true,
 		},
 	},
 });
