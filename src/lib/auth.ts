@@ -9,7 +9,7 @@ export const auth = betterAuth({
 	trustedOrigins: [
 		"universalstarter://",
 		"universalstarter://*",
-		"*.expo.app",
+		"https://*.expo.app",
 		"https://expo.app",
 		"localhost:8081",
 	],
