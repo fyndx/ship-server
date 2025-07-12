@@ -11,7 +11,7 @@ export const auth = betterAuth({
 		"universalstarter://*",
 		"https://*.expo.app",
 		"https://expo.app",
-		"localhost:8081",
+		"http://localhost:8081",
 	],
 	database: prismaAdapter(prisma, {
 		provider: "postgresql",
