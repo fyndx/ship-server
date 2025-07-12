@@ -2,6 +2,7 @@ import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
 import { auth } from "@/src/lib/auth";
+import { isOriginAllowed } from "./cors";
 import { OpenAPI } from "./lib/open-api";
 
 const app = new Elysia()
@@ -17,13 +18,14 @@ const app = new Elysia()
 	.use(
 		cors({
 			origin: (request: Request) => {
-				const ALLOWED_ORIGINS = [
-					"http://localhost:8081",
-					/^https:\/\/.*\.expo\.app$/,
-				];
+				// const ALLOWED_ORIGINS = [
+				// 	"http://localhost:8081",
+				// 	// /^https:\/\/.*\.expo\.app$/,
+				// 	"https://*.expo.app",
+				// ];
 
 				const origin = request.headers.get("origin") || "";
-				return ALLOWED_ORIGINS.includes(origin);
+				return isOriginAllowed(origin);
 			},
 			methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 			credentials: true,
