@@ -84,8 +84,10 @@ class EmailService {
 		try {
 			// Validate required fields
 			this.validateOptions(options);
+			console.log("Sending email with options:", options);
 			return await this.provider.sendEmail(options);
 		} catch (error) {
+			console.error("Error sending email:", error);
 			return {
 				success: false,
 				error: error instanceof Error ? error.message : "Unknown error",
