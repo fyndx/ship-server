@@ -28,6 +28,11 @@ class EmailService {
 	constructor() {
 		this.config = getEmailConfig();
 		this.provider = this.createProvider();
+
+		console.log(
+			"Email service initialized with provider:",
+			this.config.provider,
+		);
 	}
 
 	private createProvider(): EmailProvider {
