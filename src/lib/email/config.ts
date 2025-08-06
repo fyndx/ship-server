@@ -7,7 +7,7 @@
 import type { EmailConfig } from "./types";
 
 export const getEmailConfig = (): EmailConfig => {
-	return {
+	const config = {
 		provider:
 			(process.env.EMAIL_PROVIDER as EmailConfig["provider"]) || "resend",
 		from: process.env.EMAIL_FROM || "noreply@yourapp.com",
@@ -31,4 +31,6 @@ export const getEmailConfig = (): EmailConfig => {
 		nodemailerUser: process.env.NODEMAILER_USER,
 		nodemailerPass: process.env.NODEMAILER_PASS,
 	};
+
+	return config;
 };

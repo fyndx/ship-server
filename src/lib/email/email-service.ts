@@ -11,19 +11,6 @@
  * Set EMAIL_PROVIDER to choose the active provider.
  */
 
-/**
- * Email Service
- *
- * A unified email service that supports multiple providers:
- * - Resend: Modern email API service
- * - Plunk: Simple email API service
- * - Nodemailer: Popular Node.js email library
- * - SMTP: Generic SMTP configuration
- *
- * Configuration is managed through environment variables.
- * Set EMAIL_PROVIDER to choose the active provider.
- */
-
 import { getEmailConfig } from "./config";
 import {
 	NodemailerProvider,
@@ -68,26 +55,25 @@ class EmailService {
 		}
 	}
 
+	private validateOptions(opts: EmailOptions): void {
+		const missing = [];
+		if (!opts.to) missing.push("to");
+		if (!opts.subject) missing.push("subject");
+		if (missing.length) {
+			throw new Error(`Missing required fields: ${missing.join(", ")}`);
+		}
+		if (!opts.html && !opts.text) {
+			throw new Error("Either html or text content is required");
+		}
+	}
+
 	/**
 	 * Send an email using the configured provider
 	 */
 	async sendEmail(options: EmailOptions): Promise<EmailResult> {
 		try {
 			// Validate required fields
-			if (!options.to || !options.subject) {
-				return {
-					success: false,
-					error: "Missing required fields: to and subject are required",
-				};
-			}
-
-			if (!options.html && !options.text) {
-				return {
-					success: false,
-					error: "Either html or text content is required",
-				};
-			}
-
+			this.validateOptions(options);
 			return await this.provider.sendEmail(options);
 		} catch (error) {
 			return {
