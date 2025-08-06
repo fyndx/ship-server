@@ -10,8 +10,8 @@ export const getEmailConfig = (): EmailConfig => {
 	const config = {
 		provider:
 			(process.env.EMAIL_PROVIDER as EmailConfig["provider"]) || "resend",
-		from: process.env.EMAIL_FROM || "noreply@yourapp.com",
-		fromName: process.env.EMAIL_FROM_NAME || "Your App",
+		from: process.env.EMAIL_FROM || "noreply@universal.expo.app",
+		fromName: process.env.EMAIL_FROM_NAME || "Universal Expo App",
 
 		// Resend
 		resendApiKey: process.env.RESEND_API_KEY,
