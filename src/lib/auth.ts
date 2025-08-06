@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin, openAPI } from "better-auth/plugins";
 import { prisma } from "@/src/lib/db";
+import { emailService } from "./email/email-service";
 
 export const auth = betterAuth({
 	plugins: [expo(), openAPI(), admin()],
@@ -18,6 +19,18 @@ export const auth = betterAuth({
 	}),
 	emailAndPassword: {
 		enabled: true,
+		requireEmailVerification: false,
+		sendResetPassword: async ({ user, url, token }, request) => {
+			await emailService.sendPasswordResetEmail(user.email, url);
+		},
+		onPasswordReset: async ({ user }, request) => {
+			// TODO: inform user about password reset
+		},
+	},
+	emailVerification: {
+		sendVerificationEmail: async ({ user, url, token }, request) => {
+			await emailService.sendEmailVerification(user.email, url);
+		},
 	},
 	advanced: {
 		cookiePrefix: "universal-starter",
