@@ -8,8 +8,7 @@ import type { EmailConfig } from "./types";
 
 export const getEmailConfig = (): EmailConfig => {
 	const config = {
-		provider:
-			(process.env.EMAIL_PROVIDER as EmailConfig["provider"]) || "resend",
+		provider: process.env.EMAIL_PROVIDER as EmailConfig["provider"],
 		from: process.env.EMAIL_FROM || "noreply@universal.expo.app",
 		fromName: process.env.EMAIL_FROM_NAME || "Universal Expo App",
 

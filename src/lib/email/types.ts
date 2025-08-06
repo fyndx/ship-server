@@ -25,7 +25,7 @@ export interface EmailResult {
 }
 
 export interface EmailConfig {
-	provider: "resend" | "plunk" | "nodemailer" | "smtp";
+	provider: "resend" | "plunk" | "nodemailer" | "smtp" | "none";
 	from: string;
 	fromName: string;
 

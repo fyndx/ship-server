@@ -50,6 +50,16 @@ class EmailService {
 			case "smtp":
 				return new SMTPProvider(this.config);
 
+			case "none":
+			case undefined:
+			case null:
+				// No-op provider - silently succeeds without sending emails
+				return {
+					async sendEmail(): Promise<EmailResult> {
+						return { success: true, messageId: "no-op" };
+					},
+				};
+
 			default:
 				throw new Error(`Unsupported email provider: ${this.config.provider}`);
 		}
