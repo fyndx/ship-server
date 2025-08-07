@@ -30,11 +30,14 @@ export class ResendProvider implements EmailProvider {
 				})),
 			});
 
+			console.log("Email sent successfully:", result.data?.id);
+
 			return {
 				success: true,
 				messageId: result.data?.id,
 			};
 		} catch (error) {
+			console.error("Error sending email with Resend:", error);
 			return {
 				success: false,
 				error: error instanceof Error ? error.message : "Unknown error",
