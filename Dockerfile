@@ -12,7 +12,6 @@ RUN bun install --frozen-lockfile
 COPY ./src ./src
 COPY ./prisma ./prisma
 COPY ./tsconfig.json ./
-COPY ./healthcheck.js ./
 
 ENV NODE_ENV=production
 
@@ -27,13 +26,16 @@ RUN bun build \
 	--outfile server \
 	./src/index.ts
 
+FROM alpine AS curl-downloader
+RUN apk add --no-cache curl
+
 FROM gcr.io/distroless/base
 
 WORKDIR /app
 
-# Copy the compiled binary and healthcheck
+# Copy the compiled binaries
 COPY --from=build /app/server server
-COPY --from=build /app/healthcheck.js healthcheck.js
+COPY --from=curl-downloader /usr/bin/curl /usr/bin/curl
 
 # Ensure the binary is executable
 USER nonroot:nonroot
@@ -41,8 +43,8 @@ USER nonroot:nonroot
 ENV NODE_ENV=production
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD ["/usr/local/bin/bun", "/app/healthcheck.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD ["/usr/bin/curl", "-f", "http://localhost:3000/health"]
 
 EXPOSE 3000
 
