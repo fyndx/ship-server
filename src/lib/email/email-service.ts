@@ -30,7 +30,7 @@ class EmailService {
 		this.provider = this.createProvider();
 
 		console.log(
-			"Email service initialized with provider:",
+			"💌 Email service initialized with provider:",
 			this.config.provider,
 		);
 	}

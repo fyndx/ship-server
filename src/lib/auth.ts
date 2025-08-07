@@ -32,6 +32,7 @@ export const auth = betterAuth({
 			console.log("Sending verification email to:", user.email);
 			await emailService.sendEmailVerification(user.email, url);
 		},
+		sendOnSignUp: true,
 	},
 	advanced: {
 		cookiePrefix: "universal-starter",
