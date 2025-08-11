@@ -1,4 +1,4 @@
-# AI Coding Agent innstructions – Universal Starter (Server)
+# AI Coding Agent instructions – Universal Starter (Server)
 
 ## 📌 Tech Stack
 - **Framework**: [Elysia](https://elysiajs.com/)

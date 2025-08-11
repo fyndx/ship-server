@@ -1,3 +1,4 @@
+import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { baseMiddleware } from "../../middleware";
 import { requireAuth } from "../../middleware/auth.middleware";
@@ -13,11 +14,10 @@ export const meProcedure = baseMiddleware
 		}),
 	)
 	.handler(({ context }) => {
-		console.log(context);
-		const user = context.user;
+		const { user } = context;
 		if (!user) {
 			// Should be unreachable because of requireAuth, but keeps types narrow
-			throw new Error("Unauthenticated");
+			throw new ORPCError("UNAUTHORIZED", { message: "Unauthenticated" });
 		}
 		return {
 			id: user.id,

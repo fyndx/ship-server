@@ -23,11 +23,8 @@ export const withBetterAuth = os
 				? context.headers
 				: new Headers(context.headers);
 
-		console.log("withBetterAuth context headers", headers);
-
 		// Server-side Better Auth API (no client in middlewares)
 		const sessionData = await auth.api.getSession({ headers }); // server API call
-		console.log("withBetterAuth sessionData", sessionData);
 
 		return next({
 			context: {
@@ -42,7 +39,6 @@ export const withBetterAuth = os
 export const requireAuth = os
 	.$context<AuthCtx>()
 	.middleware(async ({ context, next }) => {
-		console.log({ context });
 		if (!context.session || !context.user) {
 			throw new ORPCError("UNAUTHORIZED", { message: "Unauthenticated" });
 		}

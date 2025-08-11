@@ -30,8 +30,6 @@ export class ResendProvider implements EmailProvider {
 				})),
 			});
 
-			console.log("Email sent successfully:", result.data?.id);
-
 			return {
 				success: true,
 				messageId: result.data?.id,
