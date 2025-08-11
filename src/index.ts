@@ -4,6 +4,7 @@ import { Elysia } from "elysia";
 import { auth } from "@/src/lib/auth";
 import { isOriginAllowed } from "./cors";
 import { OpenAPI } from "./lib/open-api";
+import { orpcHandler } from "./orpc";
 
 const app = new Elysia()
 	.use(
@@ -53,6 +54,23 @@ const app = new Elysia()
 				description: "Health check endpoint",
 				summary: "Health Check",
 			},
+		},
+	)
+	// Orpc
+	.all(
+		"/orpc/*",
+		async ({ request }: { request: Request }) => {
+			const { response } = await orpcHandler.handle(request, {
+				prefix: "/orpc",
+				context: {
+					headers: request.headers,
+				},
+			});
+
+			return response ?? new Response("Not Found", { status: 404 });
+		},
+		{
+			parse: "none",
 		},
 	)
 	.listen(3000);
